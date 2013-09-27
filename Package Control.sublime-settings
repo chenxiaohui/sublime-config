@@ -1,7 +1,9 @@
 {
 	"installed_packages":
 	[
+		"Gist",
 		"Package Control",
-		"SFTP"
+		"SFTP",
+		"SideBarEnhancements"
 	]
 }
