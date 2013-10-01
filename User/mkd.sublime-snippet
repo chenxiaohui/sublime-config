@@ -1,0 +1,41 @@
+<snippet>
+     <content>
+     <![CDATA[
+     ![${1:alt}](${2:url} "${3:title}")
+     ]]>
+     </content>
+     <tabTrigger>img</tabTrigger>
+     <description>markdown img</description>
+     <scope>text.html.markdown</scope>
+</snippet>
+<snippet>
+     <content>
+     <![CDATA[
+	[${1:link}](${2:url} "${3:title}")
+     ]]>
+     </content>
+     <tabTrigger>a</tabTrigger>
+     <description>markdown a href</description>
+     <scope>text.html.markdown</scope>
+</snippet>
+<snippet>
+     <content>
+     <![CDATA[
+	[${1:link}](mailto:${2:email})${3}
+     ]]>
+     </content>
+     <tabTrigger>mail</tabTrigger>
+     <description>markdown mail</description>
+     <scope>text.html.markdown</scope>
+</snippet>
+<snippet>
+     <content>
+     <![CDATA[
+	[1]: ${1:url}   "${2:alt}"
+	${3}
+     ]]>
+     </content>
+     <tabTrigger>ref</tabTrigger>
+     <description>markdown ref</description>
+     <scope>text.html.markdown</scope>
+</snippet>
