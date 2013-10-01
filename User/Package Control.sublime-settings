@@ -3,8 +3,11 @@
 	[
 		"Gist",
 		"Markdown Preview",
+		"Octopress",
+		"Octopress Snippets",
 		"Package Control",
 		"SFTP",
-		"SideBarEnhancements"
+		"SideBarEnhancements",
+		"Theme - Flatland"
 	]
 }
