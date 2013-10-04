@@ -1,0 +1,8 @@
+<snippet>
+	<content><![CDATA[
+    [${1:id}]: ${2:url}   "${3:alt}"
+    [id]
+]]></content>
+	<tabTrigger>ref</tabTrigger>
+	<scope>text.html.markdown</scope>
+</snippet>

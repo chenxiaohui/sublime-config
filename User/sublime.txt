@@ -2,9 +2,10 @@ ctrl+/ 			注释
 ctrl+shift+t	恢复被关闭的标签
 ctrl+shift+p	命令模式
 ctrl+p			文件
-	@			
+	@
 	#
 	:
+
 ctrl+`			命令行
 ctrl+k,b		sidebar
 ctrl+shift+上下	交换两行
