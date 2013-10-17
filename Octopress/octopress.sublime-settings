@@ -1,6 +1,6 @@
 {
   // path to your octopress
-  "octopress_path": "/media/backup/work/blog",
+  "octopress_path": "/media/cxh/backup/work/blog",
 
   // the shell to run commands with
   "octopress_shell_executable": "/bin/bash",

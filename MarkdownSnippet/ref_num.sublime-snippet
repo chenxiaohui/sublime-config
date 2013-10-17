@@ -1,8 +1,8 @@
 <snippet>
 	<content><![CDATA[
-	[1]: ${1:url}   "${2:alt}"
-	[2]:
-    [3]:
+[1]: ${1:url}   "${2:alt}"
+[2]:
+[3]:
 ]]></content>
 	<tabTrigger>ref</tabTrigger>
 	<scope>text.html.markdown</scope>

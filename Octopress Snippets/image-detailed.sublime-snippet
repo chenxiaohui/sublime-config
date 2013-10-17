@@ -1,6 +1,6 @@
 <snippet>
 	<content><![CDATA[
-{% img ${1:class names} ${2:/path/to/image} ${3:width} ${4:height} ${5:${6:title text} ${7:alt text}} %}
+{% img ${1:img-polaroid center} /images/${2:2013-10} "${3:title text}" "${4}" %}
 ]]></content>
 	<tabTrigger>img</tabTrigger>
 	<scope>text.html</scope>
