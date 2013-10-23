@@ -6,7 +6,7 @@
   "octopress_shell_executable": "/bin/bash",
 
   // command to run before calling rake, eg source ~/.bash_profile to set up your local environment inc paths to ruby, rake etc.
-  "octopress_cmd_before_rake" : "source $HOME/.rvm/scripts/rvm && export PATH=$HOME/.rvm/bin:$PATH && export GEM_HOME=~/.rvm/gems/ruby-2.0.0-p247 && export LANG=en_US.UTF-8 && export LC_ALL=en_US.UTF-8",
+  "octopress_cmd_before_rake" : "source $HOME/.bash_profile && export PATH=$HOME/.rvm/bin:$PATH && export GEM_HOME=~/.rvm/gems/ruby-2.0.0-p247@global && export LANG=en_US.UTF-8 && export LC_ALL=en_US.UTF-8",
 
   // set to generate, deploy or generate_and_deploy if you wish to have your changes generated into the /public folder and/or deployed upon file save
   "octopress_onsave_action": "",
