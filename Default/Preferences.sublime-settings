@@ -81,7 +81,7 @@
 
     // Set to false to prevent word wrapped lines from being indented to the same
     // level
-    "indent_subsequent_lines": true,
+    "indent_subsequent_lines": false,
 
     // Draws text centered in the window rather than left aligned
     "draw_centered": false,

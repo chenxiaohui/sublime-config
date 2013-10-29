@@ -17,5 +17,5 @@ class GeneraterefCommand(sublime_plugin.TextCommand):
             idx2 = line.find('"', idx1)
             url = line[idx1+1:idx2].strip(' ')
             title = line[idx2:].strip('"')
-            outlines.append('\n>%s %s, <%s>'%(index,title,url))
+            outlines.append('\n>\%s %s, <%s>'%(index,title,url))
         self.view.insert(edit, sel.end(), "\n".join(outlines))
