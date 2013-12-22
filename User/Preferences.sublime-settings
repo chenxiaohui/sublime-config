@@ -1,11 +1,10 @@
 {
 	"color_scheme": "Packages/Theme - Flatland/Flatland Dark.tmTheme",
-	"font_size": 12.0,
+	"font_size": 11.0,
 	"ignored_packages":
 	[
 		"Vintage",
-		"VintageEx",
-		"SideBarEnhancements"
+		"VintageEx"
 	],
 	"theme": "Flatland Dark.sublime-theme"
 }

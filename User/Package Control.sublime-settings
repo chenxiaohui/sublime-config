@@ -1,13 +1,14 @@
 {
 	"installed_packages":
 	[
+		"CTags",
 		"Gist",
+		"KeymapManager",
 		"Markdown Preview",
 		"Octopress",
 		"Octopress Snippets",
 		"Package Control",
 		"SFTP",
-		"SideBarEnhancements",
 		"Theme - Flatland"
 	]
 }
