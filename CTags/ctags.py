@@ -298,7 +298,8 @@ def build_ctags(path, tag_file=None, recursive=False, cmd=None, env=None):
 
     # execute the command
     p = subprocess.Popen(cmd, cwd=cwd, shell=False, env=env,
-                         stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+                         stdin=subprocess.PIPE, stdout=subprocess.PIPE,
+                         stderr=subprocess.STDOUT)
 
     ret = p.wait()
 
@@ -473,12 +474,12 @@ class TagFile(object):
             leftIndex = bisect.bisect_left(self, key)
             if exact_match:
                 result = self[leftIndex]
-                while result[result.column] == key:
+                while result.line and result[result.column] == key:
                     yield(result)
                     result = Tag(self.mapped.readline().strip(), self.column)
             else:
                 result = self[leftIndex]
-                while result[result.column].startswith(key):
+                while result.line and result[result.column].startswith(key):
                     yield(result)
                     result = Tag(self.mapped.readline().strip(), self.column)
 
