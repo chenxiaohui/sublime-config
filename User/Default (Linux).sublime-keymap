@@ -1,10 +1,10 @@
 [
-{ "keys": ["ctrl+t"], "command": "side_bar_new_file2" },
-{ "keys": ["f2"], "command": "side_bar_rename" },
-{ "keys": ["ctrl+alt+f"], "command": "side_bar_find_files_path_containing" },
-{ "keys": ["ctrl+k", "ctrl+p"], "command": "clipssh" },
-{ "keys": ["ctrl+k", "ctrl+0"], "command": "cliptest0" },
-{ "keys": ["ctrl+k", "ctrl+2"], "command": "cliptest2" },
-{ "keys": ["ctrl+k", "ctrl+f"], "command": "generateref" } 
-
+	{ "keys": ["ctrl+t"], "command": "side_bar_new_file2" },
+	{ "keys": ["f2"], "command": "side_bar_rename" },
+	{ "keys": ["ctrl+alt+f"], "command": "side_bar_find_files_path_containing" },
+	{ "keys": ["ctrl+k", "ctrl+p"], "command": "clipssh" },
+	{ "keys": ["ctrl+k", "ctrl+0"], "command": "cliptest0" },
+	{ "keys": ["ctrl+k", "ctrl+2"], "command": "cliptest2" },
+	{ "keys": ["ctrl+k", "ctrl+f"], "command": "generateref" } ,
+	{ "keys": ["ctrl+k", "ctrl+m"], "command": "mdpreview" } 
 ]
