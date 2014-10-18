@@ -1,4 +1,4 @@
-# Gist
+# Gist [![Build Status](https://travis-ci.org/condemil/Gist.svg?branch=master)](https://travis-ci.org/condemil/Gist)
 
 A [Sublime Text 2/3](http://www.sublimetext.com/) plugin for creating and editing Gists.
 
@@ -23,8 +23,9 @@ As of [2013-05-16](https://github.com/blog/1509-personal-api-tokens), you can ge
 
 ## Web
 * Account Settings -> [Applications](https://github.com/settings/applications)
-* "Create New Token" under "Personal API Access Tokens"
-* You might want to give the Token a useful name, Ex: sublime gist
+* "Generate new token" under "Personal access tokens"
+* For "Token description" you should give it a meaningful name, Example: sublime gist
+* Under "Select scopes" you can just select gist
 
 Paste the token in the settings section under the token option.
 
@@ -32,14 +33,14 @@ Paste the token in the settings section under the token option.
 
 Here's a command you can run from your terminal to generate a token via curl:
 
-    curl -v -u USERNAME -X POST https://api.github.com/authorizations --data "{\"scopes\":[\"gist\"]}"
+    curl -v -u USERNAME -X POST https://api.github.com/authorizations --data "{\"scopes\":[\"gist\"], \"note\": \"SublimeText 2/3 Gist plugin\"}"
 
 Where USERNAME is your Github username. Save the token generated and paste it in the settings section under the token option.
 
 
 # Options
 
-Edit the settings file (it should open automatically the first time you use a Gist command) to specifiy either token.
+Edit the settings file (it should open automatically the first time you use a Gist command) to specify either token.
 
 *   `"token": ""`
 

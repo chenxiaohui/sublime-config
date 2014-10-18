@@ -1,6 +1,6 @@
 <snippet>
 	<content><![CDATA[
-{% img ${1:img-polaroid center} /images/${2:2014/} %}
+{% img ${1:img-polaroid center} /images/2014/${2:} %}
 ]]></content>
 	<tabTrigger>im</tabTrigger>
 	<scope>text.html</scope>

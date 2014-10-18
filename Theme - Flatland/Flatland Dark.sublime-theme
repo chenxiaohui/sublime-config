@@ -467,6 +467,14 @@
         "layer0.opacity": 0.0,
         "layer0.inner_margin": [1,1]
     },
+    // Settings for gray selected sidebar
+    {
+        "settings": ["flatland_gray_selected_sidebar"],
+        "class": "tree_row",
+        "layer0.texture": "Theme - Flatland/Flatland Dark/sidebar-row-selected-gray.png",
+        "layer0.opacity": 0.0,
+        "layer0.inner_margin": [1,1]
+    },
     // Sidebar row selected
     {
         "class": "tree_row",
@@ -598,6 +606,23 @@
         "parents": [{"class": "tree_row", "attributes": ["selected"]}],
         "layer0.texture": "Theme - Flatland/Flatland Dark/group-open-selected.png"
     },
+
+//
+// HIDE ST3 FILE ICONS FOR NOW (TODO: REMOVE ST2 STYLE ICONS)
+//
+    {
+        "class": "icon_file_type",
+        "content_margin": [0,0]
+    },
+    {
+        "class": "icon_folder",
+        "content_margin": [0,0]
+    },
+    {
+        "class": "icon_folder_loading",
+        "content_margin": [0,0]
+    },
+
 
 //
 // STANDARD TEXT BUTTONS
