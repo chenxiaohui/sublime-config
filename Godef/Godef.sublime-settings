@@ -1,0 +1,8 @@
+{
+	// Copy this file to Settings - User
+	// Set your real GOPATH in user's Godef.sublime-settings
+	// For example:
+    //"gopath": "/Users/zippo/develop/GO"
+	"gopath": "/home/cxh/share/go",
+	"goroot": "/home/cxh/share/go",
+}

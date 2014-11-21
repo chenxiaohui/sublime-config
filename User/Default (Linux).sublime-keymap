@@ -6,5 +6,5 @@
 	{ "keys": ["ctrl+k", "ctrl+0"], "command": "cliptest0" },
 	{ "keys": ["ctrl+k", "ctrl+2"], "command": "cliptest2" },
 	{ "keys": ["ctrl+k", "ctrl+f"], "command": "generateref" } ,
-	{ "keys": ["ctrl+k", "ctrl+m"], "command": "mdpreview" } 
+	{ "keys": ["ctrl+k", "ctrl+m"], "command": "mdpreview" }
 ]

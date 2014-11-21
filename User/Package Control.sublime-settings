@@ -3,6 +3,8 @@
 	[
 		"CTags",
 		"Gist",
+		"Godef",
+		"GoSublime",
 		"KeymapManager",
 		"Markdown Preview",
 		"Octopress",
