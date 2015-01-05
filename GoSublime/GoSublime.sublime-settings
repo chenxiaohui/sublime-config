@@ -6,7 +6,11 @@
 	// e.g "env": { "PATH": "$HOME/go/bin:$PATH" }
 	// in values, $PATH and ${PATH} are replaced with
 	// the corresponding environment(PATH) variable, if it exists.
-	"env": {},
+    "env": 
+    { 
+        "GOPATH": "/media/cxh/backup/work",
+        "GOROOT": "$HOME/share/go"
+    },
 
 	// if set, whenever possible `GOPATH` will be set to `GS_GOPATH`.
 	// please see `Usage & Tips` `ctrl+dot,ctrl+2`
@@ -312,6 +316,5 @@
 	// `GoSublime: HTML` files are html files with the template delimiters `{{` and `}}` tailored to
 	// Go templates (text/template, html/template)
 	// (`.gohtml` files are automatically set by the syntax definition)
-	"gohtml_extensions": [".html.go"],
-	"env": { "GOPATH": "$HOME/share/go","GOROOT": "$HOME/share/go" }
+	"gohtml_extensions": [".html.go"]
 }

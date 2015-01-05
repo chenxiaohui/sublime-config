@@ -1,7 +1,7 @@
 <snippet>
 	<content><![CDATA[
 [${1:id}]: ${2:url}   "${3:alt}"
-[id]
+[2]:
 ]]></content>
 	<tabTrigger>ref</tabTrigger>
 	<scope>text.html.markdown</scope>
