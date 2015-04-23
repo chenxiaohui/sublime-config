@@ -18,4 +18,4 @@ class GeneraterefCommand(sublime_plugin.TextCommand):
             url = line[idx1+1:idx2].strip(' ')
             title = line[idx2:].strip('"')
             outlines.append('\n>\%s %s, <%s>'%(index,title,url))
-        self.view.insert(edit, sel.end(),"\n###参考文献:\n".decode("utf-8") + "\n".join(outlines))
+        self.view.insert(edit, sel.end(),"\n###Bibliography:\n".decode("utf-8") + "\n".join(outlines))

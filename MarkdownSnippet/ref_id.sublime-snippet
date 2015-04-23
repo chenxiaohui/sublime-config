@@ -1,6 +1,6 @@
 <snippet>
 	<content><![CDATA[
-[${1:id}]: ${2:url}   "${3:alt}"
+[${1:1}]: ${2:url}   "${3:alt}"
 [2]:
 ]]></content>
 	<tabTrigger>ref</tabTrigger>

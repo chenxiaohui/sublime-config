@@ -1,6 +1,6 @@
 {
   // path to your octopress
-  "octopress_path": "/you_octopress_path",
+  "octopress_path": "/home/cxh/blog",
 
   // the shell to run commands with
   "octopress_shell_executable": "/bin/sh",
