@@ -1,0 +1,18 @@
+{
+	"in_process_packages":
+	[
+	],
+	"installed_packages":
+	[
+		"CTags",
+		"Gist",
+		"KeymapManager",
+		"Octopress",
+		"Octopress Snippets",
+		"Package Control",
+		"Pretty JSON",
+		"SFTP",
+		"Theme - Flatland",
+		"VintageEx"
+	]
+}
