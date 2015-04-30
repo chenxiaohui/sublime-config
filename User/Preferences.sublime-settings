@@ -3,9 +3,12 @@
 	"font_size": 14.0,
 	"ignored_packages":
 	[
+		"Gist",
 		"Vintage",
-		"VintageEx",
-		"SideBarEnhancements"
+		"GitGutter",
+		"SFTP",
+		"Markdown Preview",
+		"VintageEx"
 	],
 	"theme": "Flatland Dark.sublime-theme"
 }

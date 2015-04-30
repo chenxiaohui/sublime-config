@@ -1,0 +1,24 @@
+ctrl+k,b            	                      	切换侧边栏
+alt+/, tab                	               代码提示
+ctrl+shift+v     	                      	paste and indent
+ctrl+shift+k	                      	删除整行
+f9		                      	sortlines
+ctrl+j		                      	合并行
+ctrl+shift+d	                      	复制行
+ctrl+]		                      	缩进
+ctrl+shift+]	                      	折叠
+shift+alt+上下	                      	添加多光标
+ctrl+d		                      	添加多光标(选择)
+ctrl+l		                      	扩展选择到行
+ctrl+shift+空格	                      	扩展选择到区域
+ctrl+shift+M			扩展选择到括号
+alt+f3 				全部多光标
+ctrl+shift+f 			find in files
+ctrl+alt+k			key map manager
+ctrl+p  				goto anything
+ctrl+r				goto symbol
+ctrl+g 				goto line
+alt_o				定义实现文件跳转
+ctrl+m 				括号跳转
+ctrl+b				build
+ctrl+h				替换
