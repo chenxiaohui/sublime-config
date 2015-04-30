@@ -23,7 +23,7 @@
     // Tab element
     {
         "class": "tab_control",
-        "content_margin": [28, 6, 28, 4],
+        "content_margin": [14, 0, 14, 6],
         "max_margin_trim": 0,
         "hit_test_level": 0.5,
         // Inactive tab settings
@@ -65,7 +65,7 @@
         "fade": false,
         "fg": [144, 146, 147],
         "font.bold" : false,
-        "font.size" : 12
+        "font.size" : 11
     },
     {
         "class": "tab_label",
@@ -135,7 +135,7 @@
         "class": "tab_control",
         "settings": ["!show_tab_close_buttons", "highlight_modified_tabs"],
         "attributes": ["dirty"],
-        "content_margin": [22, 6, 15, 4]
+        "content_margin": [14, 0, 15, 6]
     },
     {
         // Tab dirty button (close button hidden)
@@ -467,6 +467,14 @@
         "layer0.opacity": 0.0,
         "layer0.inner_margin": [1,1]
     },
+    // Settings for gray selected sidebar
+    {
+        "settings": ["flatland_gray_selected_sidebar"],
+        "class": "tree_row",
+        "layer0.texture": "Theme - Flatland/Flatland Dark/sidebar-row-selected-gray.png",
+        "layer0.opacity": 0.0,
+        "layer0.inner_margin": [1,1]
+    },
     // Sidebar row selected
     {
         "class": "tree_row",
@@ -598,6 +606,51 @@
         "parents": [{"class": "tree_row", "attributes": ["selected"]}],
         "layer0.texture": "Theme - Flatland/Flatland Dark/group-open-selected.png"
     },
+
+//
+// HIDE ST3 FILE ICONS FOR NOW (TODO: REMOVE ST2 STYLE ICONS)
+//
+    {
+        "class": "icon_file_type",
+        "content_margin": [0,0]
+    },
+    {
+        "class": "icon_folder",
+        "content_margin": [0,0]
+    },
+    {
+        "class": "icon_folder_loading",
+        "layer0.texture":
+        {
+            "keyframes":
+            [
+                "Theme - Flatland/Flatland Dark/spinner/spin_1.png",
+                "Theme - Flatland/Flatland Dark/spinner/spin_2.png",
+                "Theme - Flatland/Flatland Dark/spinner/spin_3.png",
+                "Theme - Flatland/Flatland Dark/spinner/spin_4.png",
+                "Theme - Flatland/Flatland Dark/spinner/spin_5.png",
+                "Theme - Flatland/Flatland Dark/spinner/spin_6.png",
+                "Theme - Flatland/Flatland Dark/spinner/spin_7.png",
+                "Theme - Flatland/Flatland Dark/spinner/spin_8.png",
+                "Theme - Flatland/Flatland Dark/spinner/spin_9.png",
+                "Theme - Flatland/Flatland Dark/spinner/spin_10.png",
+                "Theme - Flatland/Flatland Dark/spinner/spin_11.png",
+                "Theme - Flatland/Flatland Dark/spinner/spin_12.png",
+                "Theme - Flatland/Flatland Dark/spinner/spin_13.png",
+                "Theme - Flatland/Flatland Dark/spinner/spin_14.png",
+                "Theme - Flatland/Flatland Dark/spinner/spin_15.png",
+                "Theme - Flatland/Flatland Dark/spinner/spin_16.png",
+                "Theme - Flatland/Flatland Dark/spinner/spin_17.png",
+                "Theme - Flatland/Flatland Dark/spinner/spin_18.png",
+                "Theme - Flatland/Flatland Dark/spinner/spin_19.png"
+            ],
+            "loop": true,
+            "frame_time": 0.05
+        },
+        "layer0.opacity": 1.0,
+        "content_margin": [8, 8]
+    },
+
 
 //
 // STANDARD TEXT BUTTONS

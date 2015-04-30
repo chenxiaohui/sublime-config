@@ -6,15 +6,14 @@ Adds attribute list syntax. Inspired by
 [maruku](http://maruku.rubyforge.org/proposal.html#attribute_lists)'s
 feature of the same name.
 
-Copyright 2011 [Waylan Limberg](http://achinghead.com/).
+See <https://pythonhosted.org/Markdown/extensions/attr_list.html> 
+for documentation.
 
-Contact: markdown@freewisdom.org
+Original code Copyright 2011 [Waylan Limberg](http://achinghead.com/).
 
-License: BSD (see ../LICENSE.md for details) 
+All changes Copyright 2011-2014 The Python Markdown Project
 
-Dependencies:
-* [Python 2.4+](http://python.org)
-* [Markdown 2.1+](http://packages.python.org/Markdown/)
+License: [BSD](http://www.opensource.org/licenses/bsd-license.php) 
 
 """
 
@@ -27,7 +26,7 @@ import re
 
 try:
     Scanner = re.Scanner
-except AttributeError:
+except AttributeError: #pragma: no cover
     # must be on Python 2.4
     from sre import Scanner
 
@@ -67,7 +66,7 @@ def isheader(elem):
 class AttrListTreeprocessor(Treeprocessor):
     
     BASE_RE = r'\{\:?([^\}]*)\}'
-    HEADER_RE = re.compile(r'[ ]*%s[ ]*$' % BASE_RE)
+    HEADER_RE = re.compile(r'[ ]+%s[ ]*$' % BASE_RE)
     BLOCK_RE = re.compile(r'\n[ ]*%s[ ]*$' % BASE_RE)
     INLINE_RE = re.compile(r'^%s' % BASE_RE)
     NAME_RE = re.compile(r'[^A-Z_a-z\u00c0-\u00d6\u00d8-\u00f6\u00f8-\u02ff\u0370-\u037d'
@@ -80,10 +79,36 @@ class AttrListTreeprocessor(Treeprocessor):
             if isBlockLevel(elem.tag):
                 # Block level: check for attrs on last line of text
                 RE = self.BLOCK_RE
-                if isheader(elem):
-                    # header: check for attrs at end of line
+                if isheader(elem) or elem.tag == 'dt':
+                    # header or def-term: check for attrs at end of line
                     RE = self.HEADER_RE
-                if len(elem) and elem[-1].tail:
+                if len(elem) and elem.tag == 'li':
+                    # special case list items. children may include a ul or ol.
+                    pos = None
+                    # find the ul or ol position
+                    for i, child in enumerate(elem):
+                        if child.tag in ['ul', 'ol']:
+                            pos = i
+                            break
+                    if pos is None and elem[-1].tail:
+                        # use tail of last child. no ul or ol.
+                        m = RE.search(elem[-1].tail)
+                        if m:
+                            self.assign_attrs(elem, m.group(1))
+                            elem[-1].tail = elem[-1].tail[:m.start()]
+                    elif pos is not None and pos > 0 and elem[pos-1].tail:
+                        # use tail of last child before ul or ol
+                        m = RE.search(elem[pos-1].tail)
+                        if m:
+                            self.assign_attrs(elem, m.group(1))
+                            elem[pos-1].tail = elem[pos-1].tail[:m.start()]
+                    elif elem.text:
+                        # use text. ul is first child.
+                        m = RE.search(elem.text)
+                        if m:
+                            self.assign_attrs(elem, m.group(1))
+                            elem.text = elem.text[:m.start()]
+                elif len(elem) and elem[-1].tail:
                     # has children. Get from tail of last child
                     m = RE.search(elem[-1].tail)
                     if m:
@@ -95,6 +120,8 @@ class AttrListTreeprocessor(Treeprocessor):
                 elif elem.text:
                     # no children. Get from text.
                     m = RE.search(elem.text)
+                    if not m and elem.tag == 'td':
+                        m = re.search(self.BASE_RE, elem.text)
                     if m:
                         self.assign_attrs(elem, m.group(1))
                         elem.text = elem.text[:m.start()]
@@ -136,5 +163,5 @@ class AttrListExtension(Extension):
         md.treeprocessors.add('attr_list', AttrListTreeprocessor(md), '>prettify')
 
 
-def makeExtension(configs={}):
-    return AttrListExtension(configs=configs)
+def makeExtension(*args, **kwargs):
+    return AttrListExtension(*args, **kwargs)

@@ -1,22 +1,22 @@
 {
   // path to your octopress
-  "octopress_path": "/home/cxh/blog",
+  "octopress_path": "/you_octopress_path",
 
   // the shell to run commands with
-  "octopress_shell_executable": "/bin/bash",
-
+  "octopress_shell_executable": "/bin/sh",
+  
   // command to run before calling rake, eg source ~/.bash_profile to set up your local environment inc paths to ruby, rake etc.
-  "octopress_cmd_before_rake" : "source $HOME/.bash_profile && export PATH=$HOME/.rvm/bin:$PATH && export GEM_HOME=~/.rvm/gems/ruby-2.0.0-p247@global && export LANG=en_US.UTF-8 && export LC_ALL=en_US.UTF-8",
-
+  "octopress_cmd_before_rake" : "",
+  
   // set to generate, deploy or generate_and_deploy if you wish to have your changes generated into the /public folder and/or deployed upon file save
   "octopress_onsave_action": "",
 
   // set to the extension of all new pages. This should be the same as in your Rakefile setting for new_page_ext
   "octopress_page_extension": "markdown",
-
+  
   // set to the extension of all new posts. This should be the same as in your Rakefile setting for posts_dir
   "octopress_posts_dir": "_posts",
-
+  
   // true or false
   "use_bundle": false
 }

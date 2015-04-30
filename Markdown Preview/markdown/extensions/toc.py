@@ -1,11 +1,15 @@
 """
 Table of Contents Extension for Python-Markdown
-* * *
+===============================================
 
-(c) 2008 [Jack Miller](http://codezen.org)
+See <https://pythonhosted.org/Markdown/extensions/toc.html> 
+for documentation.
 
-Dependencies:
-* [Markdown 2.1+](http://packages.python.org/Markdown/)
+Oringinal code Copyright 2008 [Jack Miller](http://codezen.org)
+
+All changes Copyright 2008-2014 The Python Markdown Project
+
+License: [BSD](http://www.opensource.org/licenses/bsd-license.php) 
 
 """
 
@@ -13,8 +17,8 @@ from __future__ import absolute_import
 from __future__ import unicode_literals
 from . import Extension
 from ..treeprocessors import Treeprocessor
-from ..util import etree
-from .headerid import slugify, unique, itertext
+from ..util import etree, parseBoolValue, AMP_SUBSTITUTE
+from .headerid import slugify, unique, itertext, stashedHTML2text
 import re
 
 
@@ -23,60 +27,59 @@ def order_toc_list(toc_list):
     [{'level': 1}, {'level': 2}]
     =>
     [{'level': 1, 'children': [{'level': 2, 'children': []}]}]
-    
+
     A wrong list is also converted:
     [{'level': 2}, {'level': 1}]
     =>
     [{'level': 2, 'children': []}, {'level': 1, 'children': []}]
     """
-    
-    def build_correct(remaining_list, prev_elements=[{'level': 1000}]):
-        
-        if not remaining_list:
-            return [], []
-        
-        current = remaining_list.pop(0)
-        if not 'children' in current.keys():
-            current['children'] = []
-        
-        if not prev_elements:
-            # This happens for instance with [8, 1, 1], ie. when some
-            # header level is outside a scope. We treat it as a
-            # top-level
-            next_elements, children = build_correct(remaining_list, [current])
-            current['children'].append(children)
-            return [current] + next_elements, []
-        
-        prev_element = prev_elements.pop()
-        children = []
-        next_elements = []
-        # Is current part of the child list or next list?
-        if current['level'] > prev_element['level']:
-            #print "%d is a child of %d" % (current['level'], prev_element['level'])
-            prev_elements.append(prev_element)
-            prev_elements.append(current)
-            prev_element['children'].append(current)
-            next_elements2, children2 = build_correct(remaining_list, prev_elements)
-            children += children2
-            next_elements += next_elements2
-        else:
-            #print "%d is ancestor of %d" % (current['level'], prev_element['level'])
-            if not prev_elements:
-                #print "No previous elements, so appending to the next set"
-                next_elements.append(current)
-                prev_elements = [current]
-                next_elements2, children2 = build_correct(remaining_list, prev_elements)
-                current['children'].extend(children2)
+
+    ordered_list = []
+    if len(toc_list):
+        # Initialize everything by processing the first entry
+        last = toc_list.pop(0)
+        last['children'] = []
+        levels = [last['level']]
+        ordered_list.append(last)
+        parents = []
+
+        # Walk the rest nesting the entries properly
+        while toc_list:
+            t = toc_list.pop(0)
+            current_level = t['level']
+            t['children'] = []
+
+            # Reduce depth if current level < last item's level
+            if current_level < levels[-1]:
+                # Pop last level since we know we are less than it
+                levels.pop()
+
+                # Pop parents and levels we are less than or equal to
+                to_pop = 0
+                for p in reversed(parents):
+                    if current_level <= p['level']:
+                        to_pop += 1
+                    else:
+                        break
+                if to_pop:
+                    levels = levels[:-to_pop]
+                    parents = parents[:-to_pop]
+
+                # Note current level as last
+                levels.append(current_level)
+
+            # Level is the same, so append to the current parent (if available)
+            if current_level == levels[-1]:
+                (parents[-1]['children'] if parents else ordered_list).append(t)
+
+            # Current level is > last item's level,
+            # So make last item a parent and append current as child
             else:
-                #print "Previous elements, comparing to those first"
-                remaining_list.insert(0, current)
-                next_elements2, children2 = build_correct(remaining_list, prev_elements)
-                children.extend(children2)
-            next_elements += next_elements2
-        
-        return next_elements, children
-    
-    ordered_list, __ = build_correct(toc_list)
+                last['children'].append(t)
+                parents.append(last)
+                levels.append(current_level)
+            last = t
+
     return ordered_list
 
 
@@ -89,16 +92,24 @@ class TocTreeprocessor(Treeprocessor):
                 yield parent, child
     
     def add_anchor(self, c, elem_id): #@ReservedAssignment
-        if self.use_anchors:
-            anchor = etree.Element("a")
-            anchor.text = c.text
-            anchor.attrib["href"] = "#" + elem_id
-            anchor.attrib["class"] = "toclink"
-            c.text = ""
-            for elem in c.getchildren():
-                anchor.append(elem)
-                c.remove(elem)
-            c.append(anchor)
+        anchor = etree.Element("a")
+        anchor.text = c.text
+        anchor.attrib["href"] = "#" + elem_id
+        anchor.attrib["class"] = "toclink"
+        c.text = ""
+        for elem in c.getchildren():
+            anchor.append(elem)
+            c.remove(elem)
+        c.append(anchor)
+
+    def add_permalink(self, c, elem_id):
+        permalink = etree.Element("a")
+        permalink.text = ("%spara;" % AMP_SUBSTITUTE
+            if self.use_permalinks is True else self.use_permalinks)
+        permalink.attrib["href"] = "#" + elem_id
+        permalink.attrib["class"] = "headerlink"
+        permalink.attrib["title"] = "Permanent link"
+        c.append(permalink)
     
     def build_toc_etree(self, div, toc_list):
         # Add title to the div
@@ -127,7 +138,10 @@ class TocTreeprocessor(Treeprocessor):
         div.attrib["class"] = "toc"
         header_rgx = re.compile("[Hh][123456]")
         
-        self.use_anchors = self.config["anchorlink"] in [1, '1', True, 'True', 'true']
+        self.use_anchors = parseBoolValue(self.config["anchorlink"])
+        self.use_permalinks = parseBoolValue(self.config["permalink"], False)
+        if self.use_permalinks is None:
+            self.use_permalinks = self.config["permalink"]
         
         # Get a list of id attributes
         used_ids = set()
@@ -160,7 +174,8 @@ class TocTreeprocessor(Treeprocessor):
                 
                 # Do not override pre-existing ids 
                 if not "id" in c.attrib:
-                    elem_id = unique(self.config["slugify"](text, '-'), used_ids)
+                    elem_id = stashedHTML2text(text, self.markdown)
+                    elem_id = unique(self.config["slugify"](elem_id, '-'), used_ids)
                     c.attrib["id"] = elem_id
                 else:
                     elem_id = c.attrib["id"]
@@ -170,8 +185,11 @@ class TocTreeprocessor(Treeprocessor):
                 toc_list.append({'level': tag_level,
                     'id': elem_id,
                     'name': text})
-                
-                self.add_anchor(c, elem_id)
+
+                if self.use_anchors:
+                    self.add_anchor(c, elem_id)
+                if self.use_permalinks:
+                    self.add_permalink(c, elem_id)
                 
         toc_list_nested = order_toc_list(toc_list)
         self.build_toc_etree(div, toc_list_nested)
@@ -189,22 +207,26 @@ class TocExtension(Extension):
     
     TreeProcessorClass = TocTreeprocessor
     
-    def __init__(self, configs=[]):
-        self.config = { "marker" : ["[TOC]", 
-                            "Text to find and replace with Table of Contents -"
-                            "Defaults to \"[TOC]\""],
-                        "slugify" : [slugify,
-                            "Function to generate anchors based on header text-"
-                            "Defaults to the headerid ext's slugify function."],
-                        "title" : [None,
-                            "Title to insert into TOC <div> - "
-                            "Defaults to None"],
-                        "anchorlink" : [0,
-                            "1 if header should be a self link"
-                            "Defaults to 0"]}
+    def __init__(self, *args, **kwargs):
+        self.config = { 
+            "marker" : ["[TOC]", 
+                "Text to find and replace with Table of Contents - "
+                "Defaults to \"[TOC]\""],
+            "slugify" : [slugify,
+                "Function to generate anchors based on header text - "
+                "Defaults to the headerid ext's slugify function."],
+            "title" : ["",
+                "Title to insert into TOC <div> - "
+                "Defaults to an empty string"],
+            "anchorlink" : [0,
+                "1 if header should be a self link - "
+                "Defaults to 0"],
+            "permalink" : [0,
+                "1 or link text if a Sphinx-style permalink should be added - "
+                "Defaults to 0"]
+        }
 
-        for key, value in configs:
-            self.setConfig(key, value)
+        super(TocExtension, self).__init__(*args, **kwargs)
 
     def extendMarkdown(self, md, md_globals):
         tocext = self.TreeProcessorClass(md)
@@ -217,5 +239,5 @@ class TocExtension(Extension):
         md.treeprocessors.add("toc", tocext, "_end")
 
 
-def makeExtension(configs={}):
-    return TocExtension(configs=configs)
+def makeExtension(*args, **kwargs):
+    return TocExtension(*args, **kwargs)

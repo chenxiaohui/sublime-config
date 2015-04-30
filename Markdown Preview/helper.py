@@ -1,13 +1,16 @@
-import sublime, os, pkgutil
+import sublime
+import os
+import pkgutil
 import os.path
 import re
+import sys
 
 '''
 INSTALLED_DIRECTORY - The install directory name for this plugin.
 
 For ST3
     As descriped in http://www.sublimetext.com/docs/3/packages.html this script locations is one of
-    Zipped: 
+    Zipped:
         "<executable_path>/Packages/Markdown Preview.sublime-package/Markdown Preview.MarkdownPreview"
         "<data_path>/Installed Packages/Markdown Preview.sublime-package/Markdown Preview.MarkdownPreview"
     Not Zipped:
@@ -26,8 +29,6 @@ except:
     INSTALLED_DIRECTORY = "Markdown Preview"
 
 
-
-
 """
 Preload all python-markdown extensions (ST2 only)
 """
@@ -38,12 +39,29 @@ Preload all python-markdown extensions (ST2 only)
 # This package automatically imports all packages from the extension directory
 # so they are available when we need them.
 
-if sublime.version() < '3000':
+
+def is_ST3():
+    ''' check if ST3 based on python version '''
+    version = sys.version_info
+    if isinstance(version, tuple):
+        version = version[0]
+    elif getattr(version, 'major', None):
+        version = version.major
+    return (version >= 3)
+
+
+def on_error(name):
+    assert not is_ST3() and name == "yaml.lib3", "PkgUtil Error"
+    return None, None, None
+
+
+if not is_ST3():
     packages_path = sublime.packages_path()
     extension_module = "markdown.extensions"
 
-
-    for  _, package, _ in pkgutil.walk_packages("."):
+    for _, package, _ in pkgutil.walk_packages(".", onerror=on_error):
+        if package is None:
+            continue
         if package.startswith(extension_module):
-            print ("Reloading plugin extension " + os.path.join(packages_path, INSTALLED_DIRECTORY, *package.split(".")) + ".py")
+            print("Reloading plugin extension " + os.path.join(packages_path, INSTALLED_DIRECTORY, *package.split(".")) + ".py")
             __import__(package)
