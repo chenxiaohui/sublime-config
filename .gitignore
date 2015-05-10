@@ -1,6 +1,4 @@
-*.pyc
-*.cache
-*.last-run
-GoSublime/*
-Package\ Control.cache/*
-*.DS_Store
+*
+!Octopress\ Snippets
+!MarkdownSnippet
+!Users
