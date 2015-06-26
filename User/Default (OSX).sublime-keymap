@@ -1,2 +1,10 @@
 [
+	{ "keys": ["super+t"], "command": "side_bar_new_file2" },
+	{ "keys": ["f2"], "command": "side_bar_rename" },
+	{ "keys": ["super+alt+f"], "command": "side_bar_find_files_path_containing" },
+	{ "keys": ["super+k", "super+p"], "command": "clipssh" },
+	{ "keys": ["super+k", "super+0"], "command": "cliptest0" },
+	{ "keys": ["super+k", "super+2"], "command": "cliptest2" },
+	{ "keys": ["super+k", "super+f"], "command": "generateref" } ,
+	{ "keys": ["super+k", "super+m"], "command": "mdpreview" }
 ]
