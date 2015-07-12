@@ -6,5 +6,6 @@
 	{ "keys": ["super+k", "super+0"], "command": "cliptest0" },
 	{ "keys": ["super+k", "super+2"], "command": "cliptest2" },
 	{ "keys": ["super+k", "super+f"], "command": "generateref" } ,
-	{ "keys": ["super+k", "super+m"], "command": "mdpreview" }
+	{ "keys": ["super+k", "super+m"], "command": "mdpreview" },
+	{ "keys": ["super+k", "super+a"], "command": "addlink" }
 ]
