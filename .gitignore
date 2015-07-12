@@ -1,7 +1,6 @@
 *
-!Octopress\ Snippets
-!MarkdownSnippet
-!Users
-!GenerateRef
-!AddLink
-
+!GenerateRef/*
+!Octopress\ Snippets/*
+!MarkdownSnippet/*
+!Users/*
+!AddLink/*
